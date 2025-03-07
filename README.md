@@ -209,10 +209,10 @@ where ReleaseYear > 2000;
 ```
 
 **3.List all directors in alphabetical order.**
-
+```sql
 select * from directors
 order by name asc;
-
+```
 **4.Show the top 10 movies with the highest IMDb rating.**
 ``` sql
 select m.title,r.IMDB_Rating from ratings r
@@ -282,7 +282,15 @@ join movies m
 on r.MovieID=m.MovieID
 order by No_of_Votes desc;
 ```
-
+**14.#Find the average IMDB rating of all movies in the dataset.**
+```sql
+select avg(IMDB_Rating) from ratings;
+```
+**15.#Calculate the total box office gross of all movies combined from the Financials dataset.**
+```sql
+SELECT SUM(Gross) AS Total_Box_Office_Gross 
+FROM Financials;
+```
  ## Conclusion
 
  - This project demonstrates the application of SQL skills in creating and managing a IMDB_Movies. 
