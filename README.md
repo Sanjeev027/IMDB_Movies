@@ -19,6 +19,9 @@ This project demonstrates the implementation of a Library Management System usin
 
 ## Project Structure
 
+## Tools 
+- Sql
+- MySQl
 ## ER_Diagram
 ![Library_project](https://github.com/Sanjeev027/IMDB_Movies/blob/main/ER_Diagram.png)
 
