@@ -7,9 +7,9 @@
 **Database**: `imdb_movies`
 
 
-This project demonstrates the implementation of a Library Management System using SQL. It includes creating and managing tables, performing CRUD operations, and executing advanced SQL queries. The goal is to showcase skills in database design, manipulation, and querying.
+This project demonstrates the implementation of a IMDB_Movies Management using SQL. It includes creating and managing tables, performing CRUD operations, and executing advanced SQL queries. The goal is to showcase skills in database design, manipulation, and querying.
 
-![Library_project](https://github.com/Sanjeev027/IMDB_Movies/blob/main/Imdb.jpg.png)
+![IMDB_Movies_project](https://github.com/Sanjeev027/IMDB_Movies/blob/main/Imdb.jpg.png)
 
 ## Objectives
 
@@ -23,7 +23,7 @@ This project demonstrates the implementation of a Library Management System usin
 - Sql
 - MySQl
 ## ER_Diagram
-![Library_project](https://github.com/Sanjeev027/IMDB_Movies/blob/main/ER_Diagram.png)
+![IMDB_Movies_project](https://github.com/Sanjeev027/IMDB_Movies/blob/main/ER_Diagram.png)
 
 ## Relationships:
 Movies is directed by Directors (One-to-Many: One director can direct many movies, but each movie is directed by one director).
