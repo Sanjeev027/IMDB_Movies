@@ -13,7 +13,7 @@ This project demonstrates the implementation of a Library Management System usin
 
 ## Objectives
 
-1. **Set up the Library Management System Database**: Create and populate the database with tables for Actor, Box_office, Director, Genre, Rating, Movies.
+1. **Set up the IMDB_Movies Management Database**: Create and populate the database with tables for Actor, Box_office, Director, Genre, Rating, Movies.
 2. **CRUD Operations**: Perform Create, Read, Update, and Delete operations on the data.
 3. **Basic, Filtering & Aggregation and Joints & Relationships.**
 
