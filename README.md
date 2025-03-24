@@ -43,10 +43,10 @@ Movies has Financials (One-to-One: Each movie has one financial record, and each
 
  ```sql
 #Create DataBase.
-create database movies;
+create database IMDB_Movies;
 
 #Use Datbase.
-use movies;
+use IMDB_Movies;
 
 #Show Tables from using DataBase.
 show tables;
