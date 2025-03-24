@@ -15,7 +15,8 @@ This project demonstrates the implementation of a IMDB_Movies Management using S
 
 1. **Set up the IMDB_Movies Management Database**: Create and populate the database with tables for Actor, Box_office, Director, Genre, Rating, Movies.
 2. **CRUD Operations**: Perform Create, Read, Update, and Delete operations on the data.
-3. **Basic, Filtering & Aggregation and Joints & Relationships.**
+3. **Filtering & Aggregation and Joints & Relationships.**
+4. **Common Table Expressions 'CTE's', Sub Quries & Window funtions.**
 
 ## Project Structure
 
@@ -282,17 +283,102 @@ join movies m
 on r.MovieID=m.MovieID
 order by No_of_Votes desc;
 ```
-**14.#Find the average IMDB rating of all movies in the dataset.**
+**14.Find the average IMDB rating of all movies in the dataset.**
 ```sql
 select avg(IMDB_Rating) from ratings;
 ```
-**15.#Calculate the total box office gross of all movies combined from the Financials dataset.**
+**15.Calculate the total box office gross of all movies combined from the Financials dataset.**
 ```sql
 SELECT SUM(Gross) AS Total_Box_Office_Gross 
 FROM Financials;
 ```
- ## Conclusion
+##  Window Functions().
+**16.Rank movies based on their IMDB rating, partitioned by their release year.**
 
+```sql
+select m.title,m.releaseyear,r.imdb_rating,
+rank() over (partition by m.releaseyear order by r.imdb_rating desc ) as rank_
+from ratings r
+join movies m 
+on m.movieid = r.movieid;
+```
+**17.Find the cumulative total gross earnings of movies in descending order of release year.**
+```sql
+SELECT 
+    m.title, 
+    m.releaseyear, 
+    f.gross, 
+    SUM(f.gross) OVER (ORDER BY m.releaseyear DESC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cumulative_gross
+FROM movies m
+JOIN financials f ON m.movieid = f.movieid
+ORDER BY m.releaseyear DESC;
+```
+**18.Show each movie’s IMDB rating along with the difference between its rating and the average rating across all movies.**
+ ```sql
+SELECT 
+    M.Title, 
+    R.IMDB_Rating, 
+    R.IMDB_Rating - AVG(R.IMDB_Rating) OVER () AS Rating_Difference
+FROM Movies M
+JOIN Ratings R ON M.MovieID = R.MovieID;
+```
+## CTE's & Subquries.
+**19.Find the top 3 highest-grossing movies
+ Use a CTE to first rank movies based on their total gross earnings, then filter the top 3.**
+```sql
+WITH RankedMovies AS (
+    SELECT 
+        m.title, 
+        f.gross,
+        RANK() OVER (ORDER BY f.gross DESC) AS rank_
+    FROM movies m
+    JOIN financials f ON m.movieid = f.movieid
+)
+SELECT title, gross, rank_
+FROM RankedMovies
+WHERE rank_ <= 3;
+```
+**20.List movies with a higher IMDB rating than the average rating
+Use a CTE to calculate the average IMDB rating, then select movies with ratings above this value.**
+```sql
+WITH AvgRating AS (
+    SELECT AVG(imdb_rating) AS avg_rating FROM ratings
+)
+SELECT 
+    m.title, 
+    r.imdb_rating
+FROM movies m
+JOIN ratings r ON m.movieid = r.movieid
+CROSS JOIN AvgRating
+WHERE r.imdb_rating > AvgRating.avg_rating;
+```
+
+**Subquries**
+**21.Find the movie with the highest IMDB rating.**
+**without subquery.**
+```sql
+select * from ratings
+order by IMDB_Rating desc
+limit 1;
+```
+**with subquery.**
+```sql
+select * from ratings
+where imdb_rating = (select max(imdb_rating) from ratings);
+```
+**22.Retrieve the names of movies with an IMDB rating higher than the average rating of all movies.**
+```sql
+select m.title,r.imdb_rating from movies m 
+left join ratings r on r.movieid = m.movieid
+where r.imdb_rating > (select avg(imdb_rating) from ratings);
+```
+**23.List movies that made more revenue than the average gross earnings of all movies.**
+```sql
+select m.title,f.gross from movies m 
+join financials f on m.movieid = f.movieid
+where f.gross > (select avg(gross) from financials);
+```
+ ## Conclusion.
  - This project demonstrates the application of SQL skills in creating and managing a IMDB_Movies. 
 
 
