@@ -353,7 +353,7 @@ CROSS JOIN AvgRating
 WHERE r.imdb_rating > AvgRating.avg_rating;
 ```
 
-**Subquries**
+## Subquries.
 **21.Find the movie with the highest IMDB rating.**
 **without subquery.**
 ```sql
